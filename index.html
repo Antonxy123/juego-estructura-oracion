@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Colores</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juego: Construye la Oración</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="contenedor">
 
-    <h1>🎨 Juego de los Colores 🎨</h1>
+<h1>📚 Construye la Oración 📚</h1>
 
-    <h2 id="pregunta">Haz clic en el color ROJO</h2>
+<h2 id="titulo">Pregunta 1</h2>
 
-    <p>Puntaje: <span id="puntaje">0</span></p>
+<p id="pregunta">¿Cuál es el sujeto de la oración?</p>
 
-    <div class="colores">
+<div class="oracion" id="oracion">
+🐶 El perro corre rápido.
+</div>
 
-        <button class="color rojo" onclick="respuesta('rojo')"></button>
+<div class="opciones">
 
-        <button class="color azul" onclick="respuesta('azul')"></button>
+<button onclick="responder('Perro')">🐶 Perro</button>
 
-        <button class="color verde" onclick="respuesta('verde')"></button>
+<button onclick="responder('Corre')">🏃 Corre</button>
 
-        <button class="color amarillo" onclick="respuesta('amarillo')"></button>
+<button onclick="responder('Rápido')">⚡ Rápido</button>
 
-    </div>
+</div>
 
-    <h2 id="mensaje"></h2>
+<h2 id="mensaje"></h2>
+
+<p>Puntaje:
+<span id="puntaje">0</span>
+</p>
+
+<button id="siguiente" onclick="siguiente()" style="display:none;">
+➡ Siguiente
+</button>
 
 </div>
 
