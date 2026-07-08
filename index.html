@@ -1,49 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Juego: Construye la Oración</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡El Mundo Mágico de las Palabras! 🌟</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="contenedor">
+    <header>
+        <h1>✨ ¡Mundo de Palabras! ✨</h1>
+        <p class="intro">Toca a los amigos mágicos para escuchar quiénes son 🔊</p>
+    </header>
 
-<h1>📚 Construye la Oración 📚</h1>
+    <!-- Sección de Personajes / Explicación Dinámica -->
+    <div class="characters-container">
+        <div class="card card-sujeto" onclick="playSound('sujeto')">
+            <span class="emoji-avatar">🐶</span>
+            <h2>El Sujeto</h2>
+            <p>¿Quién hace la acción? ¡Es el protagonista!</p>
+        </div>
 
-<h2 id="titulo">Pregunta 1</h2>
+        <div class="card card-predicado" onclick="playSound('predicado')">
+            <span class="emoji-avatar">🏃‍♂️💨</span>
+            <h2>El Predicado</h2>
+            <p>¿Qué hace el sujeto? ¡La acción divertida!</p>
+        </div>
 
-<p id="pregunta">¿Cuál es el sujeto de la oración?</p>
+        <div class="card card-pronombre" onclick="playSound('pronombre')">
+            <span class="emoji-avatar">🎭</span>
+            <h2>El Pronombre</h2>
+            <p>¡El disfraz! Reemplaza los nombres (Él, Ella).</p>
+        </div>
 
-<div class="oracion" id="oracion">
-🐶 El perro corre rápido.
-</div>
+        <div class="card card-adjetivo" onclick="playSound('adjetivo')">
+            <span class="emoji-avatar">🎨</span>
+            <h2>El Adjetivo</h2>
+            <p>¡El pintor! Dice cómo son las cosas (¡Bonito!).</p>
+        </div>
+    </div>
 
-<div class="opciones">
+    <!-- Sección del Juego Interactivo -->
+    <div class="game-section">
+        <h3>🎯 ¡A Jugar! ¿Qué palabra es?</h3>
+        <p style="color: #718096; margin-bottom: 15px; font-weight: bold;">Mira la palabra brillante y adivina quién es:</p>
+        
+        <div class="sentence-box" id="sentenceBox">
+            <!-- Se llena con JavaScript -->
+        </div>
 
-<button onclick="responder('Perro')">🐶 Perro</button>
+        <div class="options-container">
+            <button class="btn-option btn-sujeto" onclick="checkAnswer('Sujeto')">SUJETO</button>
+            <button class="btn-option btn-predicado" onclick="checkAnswer('Predicado')">PREDICADO</button>
+            <button class="btn-option btn-pronombre" onclick="checkAnswer('Pronombre')">PRONOMBRE</button>
+            <button class="btn-option btn-adjetivo" onclick="checkAnswer('Adjetivo')">ADJETIVO</button>
+        </div>
 
-<button onclick="responder('Corre')">🏃 Corre</button>
+        <div class="score-board">
+            ⭐ Estrellas ganadas: <span id="scoreText" style="color: #FFB84C; font-size: 1.6rem;">0</span>
+        </div>
+    </div>
 
-<button onclick="responder('Rápido')">⚡ Rápido</button>
-
-</div>
-
-<h2 id="mensaje"></h2>
-
-<p>Puntaje:
-<span id="puntaje">0</span>
-</p>
-
-<button id="siguiente" onclick="siguiente()" style="display:none;">
-➡ Siguiente
-</button>
-
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>

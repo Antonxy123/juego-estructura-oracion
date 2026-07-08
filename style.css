@@ -1,77 +1,196 @@
-body{
-    margin:0;
-    padding:0;
-    background:#FFF8DC;
-    font-family:Arial, Helvetica, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.contenedor{
-    width:90%;
-    max-width:700px;
-    margin:40px auto;
-    background:white;
-    border-radius:20px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0px 0px 15px gray;
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-h1{
-    color:#ff6600;
-    font-size:42px;
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    animation: bounce 2s infinite;
 }
 
-#titulo{
-    color:#0066cc;
+h1 {
+    font-family: 'Fredoka One', cursive;
+    color: #FF477E;
+    font-size: 2.5rem;
+    text-shadow: 3px 3px 0px #fff, 5px 5px 0px #FF99C8;
+    margin-bottom: 10px;
 }
 
-#pregunta{
-    font-size:28px;
-    font-weight:bold;
+p.intro {
+    font-size: 1.2rem;
+    color: #4A4E69;
+    font-weight: 700;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
 }
 
-.oracion{
-    margin:30px;
-    font-size:35px;
-    font-weight:bold;
-    color:#444;
+/* Contenedor de Personajes */
+.characters-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
-.opciones{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:15px;
+.card {
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: 4px solid transparent;
+    position: relative;
+    overflow: hidden;
 }
 
-button{
-    padding:18px;
-    font-size:25px;
-    border:none;
-    border-radius:15px;
-    cursor:pointer;
-    background:#4CAF50;
-    color:white;
-    transition:.3s;
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
 }
 
-button:hover{
-    transform:scale(1.05);
-    background:#2196F3;
+.card-sujeto { border-color: #FF6B6B; }
+.card-predicado { border-color: #4D96FF; }
+.card-pronombre { border-color: #6BCB77; }
+.card-adjetivo { border-color: #FFA447; }
+
+.emoji-avatar {
+    font-size: 4.5rem;
+    margin-bottom: 10px;
+    display: block;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
 }
 
-#mensaje{
-    height:40px;
-    color:red;
-    margin-top:20px;
+.card h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
 }
 
-#puntaje{
-    font-size:30px;
-    color:#ff6600;
-    font-weight:bold;
+.card-sujeto h2 { color: #FF6B6B; }
+.card-predicado h2 { color: #4D96FF; }
+.card-pronombre h2 { color: #6BCB77; }
+.card-adjetivo h2 { color: #FFA447; }
+
+.card p {
+    font-size: 1rem;
+    color: #6c757d;
+    font-weight: 700;
 }
 
-#siguiente{
-    margin-top:20px;
-    background:#ff9800;
+/* Sección del Juego */
+.game-section {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    border: 5px dashed #6C5CE7;
+}
+
+.game-section h3 {
+    font-family: 'Fredoka One', cursive;
+    color: #6C5CE7;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.sentence-box {
+    background: #F7F9FC;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2D3748;
+    margin-bottom: 25px;
+    border: 2px solid #E2E8F0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.highlight-word {
+    padding: 2px 10px;
+    border-radius: 10px;
+    background-color: #FFF3B0;
+    box-shadow: 0 4px 0px #FFE066;
+    animation: pulse 1.5s infinite;
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.btn-option {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    padding: 15px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 0px rgba(0,0,0,0.2);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-option:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0px rgba(0,0,0,0.2);
+}
+
+.btn-sujeto { background-color: #FF6B6B; }
+.btn-predicado { background-color: #4D96FF; }
+.btn-pronombre { background-color: #6BCB77; }
+.btn-adjetivo { background-color: #FFA447; }
+
+.score-board {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #4A4E69;
+}
+
+/* Animaciones */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes successPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.success-animate {
+    animation: successPop 0.5s ease;
 }
