@@ -1,117 +1,278 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dramatikiss - ¡Aprende Jugando! 🌟</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo Fotográfico ODS - UCV</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-    <div class="bg-bubbles" id="bubblesContainer"></div>
-    <canvas id="confettiCanvas"></canvas>
+<body class="bg-stone-100 text-stone-800 font-sans antialiased">
 
-    <div class="app-container">
+  <!-- =========================================================
+       SECCIÓN 1: CARÁTULA
+  ========================================================== -->
+  <header class="min-h-screen flex flex-col justify-between p-6 md:p-12 bg-gradient-to-br from-slate-900 via-indigo-950 to-stone-950 text-white relative overflow-hidden shadow-2xl">
 
-        <button class="nav-back" id="globalBackBtn" onclick="goHome()" style="display: none;">
-            <i class="fa-solid fa-arrow-left"></i>
-        </button>
-
-        <!-- PANTALLA 1: BIENVENIDA -->
-        <div class="screen active" id="welcomeScreen">
-            <div class="logo-container">
-                <div class="logo-text">dramatikiss</div>
-                <div class="tagline">¡Aprende jugando con imágenes y sonidos! 🎨</div>
-            </div>
-            <button class="btn-giant" onclick="showLearnSelection()">
-                ¡Comenzar! <i class="fa-solid fa-play"></i>
-            </button>
-        </div>
-
-        <!-- PANTALLA 2: SELECCIÓN DE INTRODUCCIÓN -->
-        <div class="screen" id="learnSelectionScreen">
-            <h2 class="title-screen">¡Conoce a los Amigos Mágicos! 👀</h2>
-            <div class="intro-grid">
-                <div class="intro-card sujeto-theme" onclick="exploreConcept('sujeto')">
-                    <div class="card-emoji">🐶</div>
-                    <h3>Sujeto</h3>
-                    <p style="font-weight:bold; color:#718096;">¿Quién es?</p>
-                </div>
-                <div class="intro-card predicado-theme" onclick="exploreConcept('predicado')">
-                    <div class="card-emoji">🏃</div>
-                    <h3>Predicado</h3>
-                    <p style="font-weight:bold; color:#718096;">¿Qué hace?</p>
-                </div>
-                <div class="intro-card pronombre-theme" onclick="exploreConcept('pronombre')">
-                    <div class="card-emoji">🎭</div>
-                    <h3>Pronombre</h3>
-                    <p style="font-weight:bold; color:#718096;">El Disfraz</p>
-                </div>
-                <div class="intro-card adjetivo-theme" onclick="exploreConcept('adjetivo')">
-                    <div class="card-emoji">🎨</div>
-                    <h3>Adjetivo</h3>
-                    <p style="font-weight:bold; color:#718096;">¿Cómo es?</p>
-                </div>
-            </div>
-
-            <button class="btn-giant" style="margin-top: 30px; background: var(--purple-magic); box-shadow: 0 8px 0px #531cb3;" onclick="startGames()">
-                ¡Ir Directo a Jugar! 🚀
-            </button>
-        </div>
-
-        <!-- PANTALLA 3: EXPLICACIÓN DETALLADA (TUTORIAL) -->
-        <div class="screen" id="introDetailScreen">
-            <h2 class="title-screen" id="detailTitle">Sujeto</h2>
-            <div class="detail-wrapper">
-                <div class="giant-illustration-container">
-                    <div class="giant-illustration" id="detailImg">🐶</div>
-                </div>
-                <div class="bubble-speech" id="detailText">
-                    Cargando presentación divertida...
-                </div>
-                <button class="btn-audio-repeat" onclick="speakCurrentTutorial()">
-                    <i class="fa-solid fa-volume-high"></i> Repetir Audio 🔊
-                </button>
-                <div class="action-row">
-                    <button class="btn-sub" style="background: #A0AEC0; box-shadow: 0 6px 0px #718096;" onclick="backToSelection()">
-                        Atrás
-                    </button>
-                    <button class="btn-sub" style="background: var(--green-brand); box-shadow: 0 6px 0px #1fa195;" id="tutorialNextBtn" onclick="nextTutorial()">
-                        ¡Siguiente! ➡️
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- PANTALLA 4: JUEGO ACTIVO -->
-        <div class="screen" id="gameScreen">
-            <div class="progress-bar-container">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
-            <h2 class="question-title" id="gameQuestion">¿Dónde está el Sujeto?</h2>
-            <div class="question-helper" id="gameSubtitle">¡Toca la imagen correcta! 🔊</div>
-            <div class="game-options-grid" id="optionsGrid"></div>
-            <button class="btn-audio-repeat" onclick="speakCurrentQuestion()">
-                <i class="fa-solid fa-volume-high"></i> Volver a escuchar la pregunta 🔊
-            </button>
-        </div>
-
-        <!-- PANTALLA 5: CELEBRACIÓN FINAL -->
-        <div class="screen" id="congratsScreen">
-            <div class="congrats-emoji">🏆🥳👑</div>
-            <h1 style="font-size: 3.5rem; color: var(--pink-brand); text-shadow: 3px 3px 0px #fff;">¡Fantástico!</h1>
-            <p class="tagline" style="border-color: var(--green-brand); color: #2D3748;">¡Eres el rey o reina de las palabras! ⭐👑</p>
-            <button class="btn-giant" onclick="restartEverything()">
-                ¡Jugar otra vez! <i class="fa-solid fa-rotate-left"></i>
-            </button>
-        </div>
-
+    <!-- Logo e Indicador de Semestre -->
+    <div class="flex flex-wrap items-center justify-between gap-4 z-10">
+      <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md py-2 px-5 rounded-full border border-white/10">
+        <img src="img/logo-ucv.png" alt="Logo UCV" class="h-10 object-contain">
+        <span class="text-xs font-bold tracking-widest text-slate-200">UNIVERSIDAD CÉSAR VALLEJO</span>
+      </div>
+      <span class="text-xs bg-indigo-600 text-white font-bold py-1.5 px-4 rounded-full uppercase tracking-wider shadow-md">
+        Semestre 2026-II
+      </span>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Título Principal y Foto de Equipo -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 my-auto items-center z-10">
+      <div class="lg:col-span-5 space-y-4">
+        <span class="text-indigo-400 font-bold tracking-widest uppercase text-xs block">
+          Entregable Final - Sesión 14
+        </span>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+          Catálogo Fotográfico <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300">
+            Ciudadano Glocal
+          </span>
+        </h1>
+        <p class="text-stone-300 text-sm md:text-base font-light max-w-sm leading-relaxed">
+          Acciones sostenibles implementadas en equipo a partir del análisis de las problemáticas en el entorno del hogar.
+        </p>
+      </div>
+
+      <!-- Ilustración de Portada: Local vs Global -->
+      <div class="lg:col-span-7 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10 group transition-all duration-300 hover:border-indigo-500/30">
+        <img src="img/portada-glocal.jpg" alt="Ilustración Ciudadano Glocal - acción local, impacto global"
+             class="w-full h-72 md:h-[400px] object-cover transition-transform duration-500 group-hover:scale-105">
+      </div>
+    </div>
+
+    <!-- Información Institucional Obligatoria -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-white/10 z-10 text-xs md:text-sm">
+      <div>
+        <span class="text-indigo-300 text-[10px] uppercase font-bold block mb-1 tracking-wider">Docente</span>
+        <p class="font-semibold text-white text-base">Dra. Blanca Soledad Zavala Alfaro</p>
+        <span class="text-stone-400 text-[10px] uppercase block mt-2 tracking-wider">Curso</span>
+        <p class="font-light text-stone-300">Objetivos del Desarrollo Sostenible</p>
+      </div>
+      <div>
+        <span class="text-indigo-300 text-[10px] uppercase font-bold block mb-1 tracking-wider">Integrantes de Equipo</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 font-light text-stone-200">
+          <p><i class="fa-solid fa-user-graduation text-indigo-400 mr-2"></i>Rimachi Salazar, Yaneth</p>
+          <p><i class="fa-solid fa-user-graduation text-indigo-400 mr-2"></i>Puchuri Guerra, Flora Natalia</p>
+          <p><i class="fa-solid fa-user-graduation text-indigo-400 mr-2"></i>Castro Pisfil, Jenifer</p>
+          <p><i class="fa-solid fa-user-graduation text-indigo-400 mr-2"></i>García Moreno, Sarai Soledad</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       SECCIÓN 2: DIAGNÓSTICO DEL PROBLEMA
+  ========================================================== -->
+  <section class="py-16 px-6 max-w-6xl mx-auto">
+    <div class="bg-white rounded-3xl p-6 md:p-10 shadow-lg border border-stone-200/80 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="inline-flex items-center gap-2 text-red-600 font-bold uppercase tracking-widest text-xs bg-red-50 py-1 px-3 rounded-md">
+          <i class="fa-solid fa-triangle-exclamation"></i> Diagnóstico Inicial
+        </div>
+        <h2 class="text-2xl md:text-3xl font-black text-stone-900 tracking-tight leading-none">
+          Problema Detectado en la Zona
+        </h2>
+        <p class="text-stone-600 text-sm font-light leading-relaxed">
+          <strong class="font-semibold text-stone-800">Deficiente acceso a servicios de salud de calidad:</strong>
+          Se identificó que la población de la zona rural cuenta con un acceso limitado a establecimientos de
+          salud cercanos y con la capacidad adecuada para atender a las familias. Esta carencia incrementa los
+          riesgos sanitarios y afecta el bienestar integral del entorno familiar.
+        </p>
+      </div>
+
+      <!-- Foto del Puesto de Salud "El Valle" -->
+      <div class="lg:col-span-7 rounded-2xl overflow-hidden shadow-md border border-stone-100">
+        <img src="img/salud.jpg" alt="Puesto de Salud El Valle - evidencia del problema detectado" class="w-full h-80 object-cover object-center">
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECCIÓN 3: ÁREAS PRIORITARIAS DEL CATÁLOGO
+  ========================================================== -->
+  <main class="max-w-6xl mx-auto px-6 pb-24 space-y-12">
+
+    <div class="text-center space-y-2">
+      <h2 class="text-3xl font-black text-stone-900 tracking-tight">Acciones Sostenibles Ejecutadas</h2>
+      <p class="text-stone-500 text-xs uppercase tracking-widest font-semibold">Despliegue fotográfico por ejes de impacto</p>
+    </div>
+
+    <!-- ---------------------------------------------------
+         3.1 ÁREA PERSONA
+    ---------------------------------------------------- -->
+    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-stone-200/80 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-100 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase px-3 py-1 rounded-full bg-amber-100 text-amber-800 tracking-wider">
+            Área 1: Persona
+          </span>
+          <h3 class="text-xl font-bold mt-1 text-stone-900">ODS 3: Salud y Bienestar</h3>
+        </div>
+        <div class="text-xs text-stone-500 bg-stone-50 py-1.5 px-4 rounded-xl border border-stone-200 max-w-md">
+          <strong class="text-amber-600 font-semibold">Meta 3.c:</strong>
+          Aumentar sustancialmente la financiación de la salud y la contratación, el desarrollo, la capacitación y la retención del personal sanitario en los países en desarrollo, especialmente en los países menos adelantados y en los pequeños Estados insulares en desarrollo.
+        </div>
+      </div>
+
+      <!-- Galería Fotográfica del Área Persona -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200 flex flex-col justify-between">
+          <img src="img/paseo.jpg" alt="Convivencia familiar al aire libre" class="w-full h-52 object-cover">
+          <div class="p-4 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-amber-600">Acción 01</span>
+            <h4 class="font-bold text-xs text-stone-900">Convivencia Familiar y Bienestar</h4>
+            <p class="text-[11px] text-stone-600 font-light">Participación en actividades familiares que fomenten la convivencia, disfrutando del aire libre y el contacto con la naturaleza.</p>
+          </div>
+        </div>
+
+        <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200 flex flex-col justify-between">
+          <img src="img/vacunacion.jpg" alt="Campaña de vacunación" class="w-full h-52 object-cover">
+          <div class="p-4 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-amber-600">Acción 02</span>
+            <h4 class="font-bold text-xs text-stone-900">Prevención Inmunológica</h4>
+            <p class="text-[11px] text-stone-600 font-light">Prevención de enfermedades mediante la vacunación de las familias y controles de salud regulares.</p>
+          </div>
+        </div>
+
+        <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200 flex flex-col justify-between">
+          <img src="img/actividad-fisica.jpg" alt="Actividad física grupal" class="w-full h-52 object-cover">
+          <div class="p-4 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-amber-600">Acción 03</span>
+            <h4 class="font-bold text-xs text-stone-900">Promoción de la Salud Integral</h4>
+            <p class="text-[11px] text-stone-600 font-light">Organización de campañas sobre alimentos balanceados, actividad física y salud mental en entornos comunitarios.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------------------------------------------------
+         3.2 ÁREA PLANETA
+    ---------------------------------------------------- -->
+    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-stone-200/80 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-100 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 tracking-wider">
+            ÁREA 2: Planeta
+          </span>
+          <h3 class="text-xl font-bold mt-1 text-stone-900">ODS 6: Agua Limpia y Saneamiento</h3>
+        </div>
+        <div class="text-xs text-stone-500 bg-stone-50 py-1.5 px-4 rounded-xl border border-stone-200 max-w-md">
+          <strong class="text-emerald-600 font-semibold">Meta 6.3:</strong>
+          De aquí al 2030, mejorar la calidad del agua reduciendo la contaminación, eliminando el vertimiento y minimizando la emisión de productos químicos y materiales peligrosos, reduciendo a la mitad el porcentaje de aguas residuales sin tratar y aumentando considerablemente el reciclado y la reutilización sin riesgos a nivel mundial.
+        </div>
+      </div>
+
+      <!-- Galería Fotográfica del Área Planeta -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200 flex flex-col justify-between">
+          <img src="img/limpieza.jpg" alt="Limpieza del espacio personal" class="w-full h-52 object-cover">
+          <div class="p-4 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-emerald-600">Acción 01</span>
+            <h4 class="font-bold text-xs text-stone-900">Limpieza y Orden del Hogar</h4>
+            <p class="text-[11px] text-stone-600 font-light">Limpiar y ordenar nuestro espacio personal de manera diaria, protegiendo la salud familiar.</p>
+          </div>
+        </div>
+
+        <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200 flex flex-col justify-between">
+          <img src="img/riego.jpg" alt="Riego nocturno de plantas" class="w-full h-52 object-cover">
+          <div class="p-4 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-emerald-600">Acción 02</span>
+            <h4 class="font-bold text-xs text-stone-900">Riego Nocturno Eficiente</h4>
+            <p class="text-[11px] text-stone-600 font-light">Riego de las coberturas vegetales en horario nocturno para optimizar el uso del agua y favorecer la absorción de las plantas.</p>
+          </div>
+        </div>
+
+        <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200 flex flex-col justify-between">
+          <img src="img/agua.jpg" alt="Abastecimiento controlado de agua potable" class="w-full h-52 object-cover">
+          <div class="p-4 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-emerald-600">Acción 03</span>
+            <h4 class="font-bold text-xs text-stone-900">Almacenamiento de Agua Potable</h4>
+            <p class="text-[11px] text-stone-600 font-light">Concientización sobre el uso adecuado del agua y el correcto almacenamiento de esta, con seguros o tapas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------------------------------------------------
+         3.3 ÁREA PROSPERIDAD
+    ---------------------------------------------------- -->
+    <div class="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-stone-200/80 space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-stone-100 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase px-3 py-1 rounded-full bg-blue-100 text-blue-800 tracking-wider">
+            ÁREA 3: Prosperidad
+          </span>
+          <h3 class="text-xl font-bold mt-1 text-stone-900">ODS 7: Energía Asequible y No Contaminante</h3>
+        </div>
+        <div class="text-xs text-stone-500 bg-stone-50 py-1.5 px-4 rounded-xl border border-stone-200 max-w-md">
+          <strong class="text-blue-600 font-semibold">Meta 7.a:</strong>
+          De aquí a 2030, aumentar la cooperación internacional para facilitar el acceso a la investigación y la tecnología relativas a la energía limpia, incluidas las fuentes renovables, la eficiencia energética y las tecnologías avanzadas y menos contaminantes de combustibles fósiles, y promover la inversión en infraestructura energética y tecnologías limpias.
+        </div>
+      </div>
+
+      <!-- Acciones de Gestión de Recursos -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl border border-stone-200/60 shadow-sm overflow-hidden">
+          <img src="img/cero-consumo-vampiro.jpg" alt="Cero Consumo Vampiro" class="w-full h-40 object-cover">
+          <div class="p-5">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xs font-bold mb-3">
+              <i class="fa-solid fa-plug"></i>
+            </div>
+            <h4 class="font-bold text-sm text-stone-900 mb-1">Cero Consumo Vampiro</h4>
+            <p class="text-xs text-stone-600 font-light leading-relaxed">Desconexión estricta de todos los cargadores de smartphones y electrodomésticos inactivos para recortar pérdidas energéticas.</p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl border border-stone-200/60 shadow-sm overflow-hidden">
+          <img src="img/reutilizacion-contenedores.jpg" alt="Día Mundial del Medio Ambiente" class="w-full h-40 object-cover">
+          <div class="p-5">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xs font-bold mb-3">
+              <i class="fa-solid fa-recycle"></i>
+            </div>
+            <h4 class="font-bold text-sm text-stone-900 mb-1">Reutilización de Contenedores</h4>
+            <p class="text-xs text-stone-600 font-light leading-relaxed">Aprovechamiento de baldes y envases plásticos en desuso para la clasificación selectiva de residuos sólidos domésticos.</p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl border border-stone-200/60 shadow-sm overflow-hidden">
+          <img src="img/eficiencia-luminica.jpg" alt="Eficiencia Lumínica" class="w-full h-40 object-cover">
+          <div class="p-5">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xs font-bold mb-3">
+              <i class="fa-solid fa-sun"></i>
+            </div>
+            <h4 class="font-bold text-sm text-stone-900 mb-1">Eficiencia Lumínica</h4>
+            <p class="text-xs text-stone-600 font-light leading-relaxed">Organización del cronograma de estudios universitarios priorizando las horas de luz solar para reducir la facturación eléctrica.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- =========================================================
+       PIE DE PÁGINA
+  ========================================================== -->
+  <footer class="bg-stone-950 text-stone-500 py-8 px-6 text-center text-xs border-t border-stone-800">
+    <p class="font-medium text-stone-400">© 2026-II - Universidad César Vallejo.</p>
+    <p class="font-light mt-1 text-stone-600">Catálogo fotográfico interactivo desarrollado para el cumplimiento de los Objetivos del Desarrollo Sostenible.</p>
+  </footer>
+
+  <!-- Script propio -->
+  <script src="script.js"></script>
 </body>
 </html>
